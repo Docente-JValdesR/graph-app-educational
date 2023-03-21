@@ -53,6 +53,25 @@
 }
 
 .active {
-  background-color: #cfcfcf;
+  background-color: #ffffff4d;
   opacity: 1;
+}
+
+
+.custom-shadow {
+box-shadow:5px 5px 5px;
+}
+.custom-shadow:hover {
+transform: scale(1.01);
+transition: 0.3s;
+}
+
+.blink {
+  animation: blinker 1s cubic-bezier(0.5, 0, 1, 1) infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }

@@ -112,7 +112,7 @@ export default function AddItems() {
   }
 
   return (
-    <div className="container text-center">
+    <div className="container text-center py-5">
       <h2>{title}</h2>
       <AddTitle />
       {componentToRender}

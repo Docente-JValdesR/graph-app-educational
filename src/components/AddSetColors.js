@@ -13,12 +13,6 @@ const AddSetColors = () => {
     return null;
   }
 
-  const isAddButtonDisabled =
-    data.length !== chartOptions.labels.length ||
-    backgroundColors.length !== chartOptions.labels.length ||
-    borderColors.length !== chartOptions.labels.length ||
-    newDatasetLabel.trim() === "";
-
   const handleAddClick = () => {
     const newDatasets = chartOptions.datasets || [];
 
@@ -76,71 +70,66 @@ const AddSetColors = () => {
     setNewDatasetLabel(event.target.value);
   };
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-6">
-        <div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Variable</th>
-        <th>Dato</th>
-        <th>Color de Fondo</th>
-        <th>Color de Borde</th>
-      </tr>
-    </thead>
-    <tbody>
-      {chartOptions.labels.map((label, index) => (
-        <tr key={index}>
-          <td>{label}</td>
-          <td>
-            <input
-              type="number"
-              class="form-control"
-              value={data[index] || ""}
-              onChange={(e) => handleDataChange(index, e.target.value)}
-            />
-          </td>
-          <td>
-            <ColorPicker
-              onChange={(color) => handleBackgroundColorChange(index, color)}
-              color={backgroundColors[index]}
-            />
-          </td>
-          <td>
-            <ColorPicker
-              color={borderColors[index]}
-              onChange={(color) => handleBorderColorChange(index, color)}
-            />
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
-
+    <div className="container align-self-center py-5 mb-3 border rounded custom-shadow">
+      <div className="row justify-content-center">
+        <div className="col-12 mb-5">Ingresa los set de datos</div>
+        <div className="col-12">
+          <table className="table table-dark table-responsive-sm table-sm table-striped border">
+            <thead>
+              <tr style={{ fontSize: "12px" }}>
+                <th>Etiqueta</th>
+                <th>Dato</th>
+                <th>Color de Fondo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {chartOptions.labels.map((label, index) => (
+                <tr key={index}>
+                  <td>{label}</td>
+                  <td>
+                    <input
+                      type="number"
+                      className="form-control form-control-sm"
+                      value={data[index] || ""}
+                      onChange={(e) => handleDataChange(index, e.target.value)}
+                    />
+                  </td>
+                  <td>
+                    <ColorPicker
+                      onChange={(color) => {
+                        handleBackgroundColorChange(index, color);
+                        handleBorderColorChange(index, color);
+                      }}
+                      color={backgroundColors[index]}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        <div className="col-md-6">
-          <div className="form-group">
-            <label for="newDatasetLabelInput">Descripción de la variable</label>
+        <div className="col-12 col-lg-6">
+          <div className="mb-3">
+            <label className="form-label" for="newDatasetLabelInput">
+              Descripción de la variable
+            </label>
             <input
               type="text"
-              className="form-control"
+              className="form-control form-control-sm"
               id="newDatasetLabelInput"
               placeholder="ej. Cantidad de votos"
               value={newDatasetLabel}
               onChange={handleLabelChange}
             />
           </div>
-          <button
-            className="btn btn-outline-secondary"
-            onClick={handleAddClick}
-            disabled={isAddButtonDisabled}
-          >
-            Agregar
-          </button>
         </div>
       </div>
+      <button
+        className="btn btn-outline-secondary text-white"
+        onClick={handleAddClick}
+      >
+        Agregar los Datos
+      </button>
     </div>
   );
 };

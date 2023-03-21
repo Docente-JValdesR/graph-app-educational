@@ -35,7 +35,7 @@ const StackerAndIndex = () => {
   };
 
   return (
-    <div className="container align-self-center">
+    <div className="container align-self-center p-5 mb-3 border rounded custom-shadow">
       <div className="row justify-content-center">
         <div className="col-12 col-lg-6">
           <div className="mb-3 form-check">
@@ -46,16 +46,16 @@ const StackerAndIndex = () => {
               checked={scales}
               onChange={handleScalesChange}
             />
-            <label className="form-check-label" htmlFor="scales-check">
-              Apilar Barras
+            <label className="form-check-label" >
+              Selecciona para apilar las barras
             </label>
           </div>
           <div className="mb-3">
             <label htmlFor="index-axis-select" className="form-label">
-              Selecciona el eje
+              Selecciona el eje de simetría
             </label>
             <select
-              className="form-select"
+              className="form-select form-select-sm"
               id="index-axis-select"
               value={indexAxis}
               onChange={handleIndexAxisChange}
@@ -65,8 +65,8 @@ const StackerAndIndex = () => {
             </select>
           </div>
 
-          <button className="btn btn-primary" onClick={handleSave}>
-            Guardar opciones
+          <button className="btn btn-outline-secondary btn-sm text-white mt-4" onClick={handleSave}>
+            Agregar Eje y Diseño
           </button>
         </div>
       </div>

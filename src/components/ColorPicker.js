@@ -34,25 +34,23 @@ const ColorPicker = ({ color, onChange }) => {
   };
 
   return (
-    <div>
-      <button
+    <div className="input-group-text input-group-sm">
+      <i
+        className="btn bi bi-palette-fill p-0 fs-5"
         type="button"
-        className="btn"
+
         onClick={handlePickerToggle}
         style={{
-          color: color && `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+          color:
+            color && `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
         }}
-      >
-        <i className="bi bi-palette-fill"        style={{
-          color: color && `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
-        }}></i>
-      </button>
+      ></i>
       {showPicker && (
         <>
           <div className="modal-backdrop" onClick={handleBackdropClick}></div>
           <div className="color-picker-container">
             <div className="color-picker">
-            <button
+              <button
                 type="button"
                 className="btn-close"
                 onClick={handlePickerToggle}
@@ -77,13 +75,13 @@ const ColorPicker = ({ color, onChange }) => {
                     onChange={(e) => handleOpacityChange(e.target.value)}
                     className="opacity-slider"
                     style={{
-                      color: color ? `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})` : 'black',
+                      color: color
+                        ? `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`
+                        : "black",
                     }}
-                    
                   />
                 </div>
               </SketchPicker>
-
             </div>
           </div>
         </>

@@ -15,7 +15,7 @@ const AddSetData = () => {
       label: "",
       data: Array(labels.length).fill(""),
       backgroundColor: { r: 255, g: 99, b: 132, a: 1 },
-      borderColor: { r: 255, g: 99, b: 132, a: 1 },
+      borderColor: { r: 255, g: 99, b: 132 },
     };
     setDataInputs([...dataInputs, newDataInput]);
   };
@@ -56,7 +56,7 @@ const AddSetData = () => {
       ({ label, data, backgroundColor, borderColor }) => ({
         data: data.map((d) => Number(d)),
         backgroundColor: `rgba(${backgroundColor.r}, ${backgroundColor.g}, ${backgroundColor.b}, ${backgroundColor.a})`,
-        borderColor: `rgba(${borderColor.r}, ${borderColor.g}, ${borderColor.b}, ${borderColor.a})`,
+        borderColor: `rgba(${borderColor.r}, ${borderColor.g}, ${borderColor.b})`,
         label,
       })
     );
@@ -69,21 +69,19 @@ const AddSetData = () => {
   );
 
   return (
-    <div className="container py-5">
-      <div className="row">
+    <div className="container align-self-center py-5 mb-3 border rounded custom-shadow">
+      <div className="row justify-content-center">
+        <div className="col-12 mb-5">Ingresa los set de datos</div>
         <div className="col-12">
-          <table className="table table-bordered table-responsive-sm table-sm">
+          <table className="table table-dark table-responsive-sm table-sm table-striped border">
             <thead>
-              <tr>
-                <th className="rotate-90">Etiqueta</th>
+              <tr style={{ fontSize: "12px" }}>
+                <th>Etiqueta</th>
                 {labels.map((label, index) => (
-                  <th key={index} className="rotate-90">
-                    {label}
-                  </th>
+                  <th key={index}>{label}</th>
                 ))}
-                <th className="rotate-90">Color de fondo</th>
-                <th className="rotate-90">Color de borde</th>
-                <th></th>
+                <th>fondo</th>
+                <th>Borrar</th>
               </tr>
             </thead>
 
@@ -93,8 +91,8 @@ const AddSetData = () => {
                   <td>
                     <input
                       type="text"
-                      className="form-control"
-                      placeholder="Ingrese etiqueta"
+                      className="form-control form-control-sm"
+                      placeholder="name"
                       value={dataInput.label}
                       onChange={(e) =>
                         handleLabelChange(rowIndex, e.target.value)
@@ -105,8 +103,8 @@ const AddSetData = () => {
                     <td key={colIndex}>
                       <input
                         type="number"
-                        className="form-control"
-                        placeholder="Ingrese dato"
+                        className="form-control form-control-sm"
+                        placeholder="value"
                         value={data}
                         onChange={(e) =>
                           handleDataChange(rowIndex, colIndex, e.target.value)
@@ -117,40 +115,22 @@ const AddSetData = () => {
                   <td>
                     <ColorPicker
                       color={dataInput.backgroundColor}
-                      onChange={(color) =>
-                        handleBackgroundColorChange(rowIndex, color)
-                      }
+                      onChange={(color) => {
+                        handleBackgroundColorChange(rowIndex, color);
+                        handleBorderColorChange(rowIndex, color);
+                      }}
                     />
                   </td>
                   <td>
-                    <ColorPicker
-                      color={dataInput.borderColor}
-                      onChange={(color) =>
-                        handleBorderColorChange(rowIndex, color)
-                      }
-                    />
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      className="btn btn-danger"
+                    <i
+                      className="btn bi bi-trash-fill text-white p-0 fs-5"
                       onClick={() => handleRemoveRow(rowIndex)}
-                    >
-                      <i className="bi bi-trash-fill"></i>
-                    </button>
+                    ></i>
                   </td>
                 </tr>
               ))}
               <tr>
-                <td>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={handleAddRow}
-                  >
-                    <i className="bi bi-plus"></i> Agregar fila
-                  </button>
-                </td>
+                <td></td>
                 {labels.map((label, index) => (
                   <td key={index}></td>
                 ))}
@@ -160,9 +140,18 @@ const AddSetData = () => {
               </tr>
             </tbody>
           </table>
+        </div>
+        <div className="col-12 d-flex justify-content-evenly">
           <button
             type="button"
-            className="btn btn-success"
+            className="btn btn-outline-secondary text-white"
+            onClick={handleAddRow}
+          >
+            Agregar fila
+          </button>
+          <button
+            type="button"
+            className="btn btn-outline-secondary text-white"
             disabled={!isValidData}
             onClick={handleSubirDatos}
           >

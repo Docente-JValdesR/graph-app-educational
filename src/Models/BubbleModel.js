@@ -41,7 +41,7 @@ export default function BarModel() {
 
   return (
     <div className="container">
-      <Bubble options={options} data={data} />
+      <Bubble options={options} data={data} style={{background:"#fff"}} />
     </div>
   );
 }

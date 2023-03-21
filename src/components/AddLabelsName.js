@@ -20,11 +20,12 @@ const AddLabelsName = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-12 col-lg-5 justify-content-center">
+    <div className="container align-self-center p-5 mb-3 border rounded custom-shadow">
+      <div className="row justify-content-center">
+        <div className="col-12 mb-5">Etiquetas Abscisas</div>
+        <div className="col-12 col-lg-5">
           {labels.map((label, index) => (
-            <div className="mb-3 input-group" key={index}>
+            <div className="mb-3 input-group input-group-sm" key={index}>
               <input
                 type="text"
                 className="form-control"
@@ -39,29 +40,25 @@ const AddLabelsName = () => {
                 }}
               />
               {index >= labels.length ? (
-                <span className="input-group-append ms-2">
-                  <button
-                    className="btn btn-success rounded-circle"
+                <span className="input-group">
+                  <i
+                    className="btn bi bi-plus-circle p-0 m-0 fs-5"
                     type="button"
                     onClick={handleAddLabel}
-                  >
-                    <i className="bi bi-plus-circle"></i>
-                  </button>
+                  ></i>
                 </span>
               ) : (
-                <span className="input-group-append ms-2">
-                  <button
-                    className="btn btn-danger rounded-circle"
+                <span className="input-group-text">
+                  <i
+                    className=" btn bi bi-x-circle p-0 fs-5"
                     type="button"
                     onClick={() => handleRemoveLabel(index)}
-                  >
-                    <i className="bi bi-x-circle"></i>
-                  </button>
+                  ></i>
                 </span>
               )}
             </div>
           ))}
-          <div className="mb-3 input-group">
+          <div className="mb-3 input-group input-group-sm">
             <input
               type="text"
               className="form-control"
@@ -77,9 +74,9 @@ const AddLabelsName = () => {
                 }
               }}
             />
-            <span className="input-group-append ms-2">
-              <button
-                className="btn btn-success rounded-circle"
+            <span className="input-group-text">
+              <i
+                className="btn bi bi-plus-circle p-0 fs-5"
                 type="button"
                 onClick={handleAddLabel}
                 disabled={
@@ -87,19 +84,18 @@ const AddLabelsName = () => {
                   (labels.length !== 0 &&
                     labels[labels.length - 1].length === 0)
                 }
-              >
-                <i className="bi bi-plus-circle"></i>
-              </button>
+              ></i>
             </span>
           </div>
         </div>
-        <button
-          className="btn btn-primary"
+        
+      </div>
+      <button
+          className="btn btn-outline-secondary btn-sm text-white mt-4"
           onClick={() => setChartOptions({ ...chartOptions, labels: labels })}
         >
           Agregar Labels
         </button>
-      </div>
     </div>
   );
 };

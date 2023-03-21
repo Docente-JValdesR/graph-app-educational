@@ -5,10 +5,10 @@ function GraphLayout() {
     <div className="bg-black text-white">
     <div className="container">
       <div className="row">
-        <div className="col-12 col-md-8">
+        <div className="col-12 col-md-7">
           <Outlet />
         </div>
-        <div className="col-12 col-md-4">
+        <div className="col-12 col-md-5">
           <StatusGraph />
         </div>
       </div>

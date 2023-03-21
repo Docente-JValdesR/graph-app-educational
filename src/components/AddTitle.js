@@ -28,7 +28,7 @@ const AddTitle = () => {
     setChartOptions(newOptions);
   };
   return (
-    <div className="container align-self-center">
+    <div className="container align-self-center p-5 mb-3 border rounded custom-shadow">
       <div className="row justify-content-center">
         <div className="col-12 col-lg-6">
           <div className="mb-3 form-check">
@@ -39,19 +39,19 @@ const AddTitle = () => {
               checked={pluginsTitleDisplay}
               onChange={handleTitleDisplayChange}
             />
-            <label className="form-check-label" htmlFor="title-display-check">
+            <label className="form-check-label">
               Mostrar título
             </label>
           </div>
           {pluginsTitleDisplay && (
-            <>
+            <div className="">
               <div className="mb-3">
-                <label htmlFor="title-text-input" className="form-label">
+                <label className="form-label">
                   Título
                 </label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control form-control-sm"
                   id="title-text-input"
                   value={pluginsTitleText}
                   onChange={handleTitleTextChange}
@@ -62,7 +62,7 @@ const AddTitle = () => {
                   Posición de la leyenda
                 </label>
                 <select
-                  className="form-select"
+                  className="form-select form-select-sm"
                   id="legend-position-select"
                   value={pluginsLegendPosition}
                   onChange={handleLegendPositionChange}
@@ -73,10 +73,10 @@ const AddTitle = () => {
                   <option value="bottom">Abajo</option>
                 </select>
               </div>
-            </>
+            </div>
           )}
           <button
-            className="btn btn-primary"
+            className="btn btn-outline-secondary text-white btn-sm mt-4"
             onClick={() => handleAddOptions()}
           >
             Agregar Titulo y Leyendas
