@@ -69,22 +69,25 @@ export default function ShowGraph() {
   }
 
   return (
-    <div>
-      <h1 className="text-center">{title}</h1>
-     {componentToRender}
-      <div className="fixed-bottom d-flex">
-        <Link
-          to="/SelectGraph"
-          className="btn btn-secondary rounded-0 flex-fill"
-        >
-          Volver a Seleccionar otro grafico
-        </Link>
-        <Link to="/additems" className="btn btn-primary rounded-0 flex-fill">
-          Editar la informacion del grafico
-        </Link>
-        <Link to="/" className="btn btn-success rounded-0 flex-fill">
-          Volver a Home
-        </Link>
+    <div className="container text-center">
+      <div className="row">
+        <div className="col-12"></div>
+        <h2 className="py-md-4">{title}</h2>
+        {componentToRender}
+        <div className="fixed-bottom d-flex">
+          <Link
+            to="/SelectGraph"
+            className="btn btn-secondary rounded-0 flex-fill"
+          >
+            Volver a Seleccionar otro grafico
+          </Link>
+          <Link to="/additems" className="btn btn-primary rounded-0 flex-fill">
+            Editar la informacion del grafico
+          </Link>
+          <Link to="/" className="btn btn-success rounded-0 flex-fill">
+            Volver a Home
+          </Link>
+        </div>
       </div>
     </div>
   );

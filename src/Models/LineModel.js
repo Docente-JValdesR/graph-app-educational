@@ -26,6 +26,7 @@ import { Line } from 'react-chartjs-2';
     const { chartOptions } = useContext(GraphContext);
     const options = {
       responsive: true,
+      maintainAspectRatio: false, // Agregamos esta línea
       plugins: {
         legend: {
           position: chartOptions.pluginsLegendPosition,
@@ -48,7 +49,7 @@ import { Line } from 'react-chartjs-2';
     };
   
     return (
-      <div className="container">
+      <div className="container" style={{ height: "400px" }}>
         <Line options={options} data={data} style={{background:"#fff"}}  />
       </div>
     );

@@ -24,6 +24,7 @@ export default function BarModel() {
   const { chartOptions } = useContext(GraphContext);
   const options = {
     responsive: chartOptions.responsive,
+    maintainAspectRatio: false, // Agregamos esta línea
     plugins: {
       legend: {
         position: chartOptions.pluginsLegendPosition,
@@ -47,7 +48,7 @@ export default function BarModel() {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ height: "400px" }}>
       <Radar options={options} data={data} style={{background:"#fff"}}  />
     </div>
   );
