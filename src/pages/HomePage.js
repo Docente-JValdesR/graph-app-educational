@@ -12,7 +12,7 @@ export default function HomePage() {
         <Col className="text-center">
           <h1 className="display-4">Bienvenido a la Graficadora</h1>
           <p className="lead">
-            La herramienta de visualización de datos más poderosa
+            La herramienta de visualización de datos más poderosa (beta)
           </p>
           <Button
             as={Link}
@@ -21,8 +21,15 @@ export default function HomePage() {
             className="mt-4"
             style={{ backgroundColor: "#000", borderColor: "#F29F05" }}
           >
-            <i class="bi bi-bar-chart"></i> Ir a la Graficadora
+            <i class="bi bi-bar-chart me-2"></i>
+            Ir a la Graficadora
           </Button>
+          <div className="mt-3 fixed-bottom" style={{ fontSize: "1.5rem" }}>
+            <p>Profesor de Matemáticas e Informática Educativa, José Valdés</p>
+            <footer className="mt-5 fs-6">
+              <p>© 2023, Todos los derechos reservados</p>
+            </footer>
+          </div>
         </Col>
       </Row>
     </Container>
