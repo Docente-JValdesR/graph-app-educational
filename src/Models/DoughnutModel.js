@@ -28,8 +28,8 @@ export default function BarModel() {
   };
 
   return (
-    <div className="container" style={{ height: "400px" }}>
-      <Doughnut options={options} data={data} style={{background:"#fff"}}  />
+    <div className="p-4" style={{ minHeight: "400px" }}>
+      <Doughnut className="py-4" options={options} data={data} style={{background:"#fff"}}  />
     </div>
   );
 }

@@ -27,7 +27,7 @@ ChartJS.register(
 export default function AreaModel() {
   const { chartOptions } = useContext(GraphContext);
   const options = {
-    responsive: chartOptions.responsive,
+    responsive: true,
     maintainAspectRatio: false, // Agregamos esta línea
     plugins: {
       legend: {

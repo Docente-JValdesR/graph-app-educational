@@ -4,11 +4,28 @@ import ColorPicker from "./ColorPicker";
 
 const AddMultiAxisData = () => {
   const [labels, setLabels] = useState([]);
-  const [dataInputs, setDataInputs] = useState([]);
   const { chartOptions, setChartOptions } = useContext(GraphContext);
+  const [dataInputs, setDataInputs] = useState(
+    chartOptions.datasets?.map((dataset) => ({
+      label: dataset.label || "",
+      data: dataset.data || [],
+      backgroundColor: dataset.backgroundColor || { r: 255, g: 99, b: 132, a: 1 },
+      borderColor: dataset.borderColor || { r: 255, g: 99, b: 132 },
+    })) || []
+  );
+
   useEffect(() => {
     setLabels(chartOptions.labels || []);
-  }, [chartOptions.labels]);
+    setDataInputs(
+      chartOptions.datasets?.map((dataset) => ({
+        label: dataset.label || "",
+        data: dataset.data || [],
+        backgroundColor: dataset.backgroundColor || { r: 255, g: 99, b: 132, a: 1 },
+        borderColor: dataset.borderColor || { r: 255, g: 99, b: 132 },
+      })) || []
+    );
+  }, [chartOptions.labels, chartOptions.datasets]);
+  
 
   const handleAddRow = () => {
     if (dataInputs.length < 2) {
@@ -68,103 +85,101 @@ const AddMultiAxisData = () => {
 
   const isValidData = dataInputs.every(
     (dataInput) => dataInput.data.length === labels.length
-  );
-
-  const isAddRowDisabled = dataInputs.length >= 2;
-
-  return (
+    );
+    
+    const isAddRowDisabled = dataInputs.length >= 2;
+    
+    return (
     <div className="container align-self-center py-5 mb-3 border rounded custom-shadow">
-      <div className="row justify-content-center">
-        <div className="col-12 mb-5">Ingresa los set de datos</div>
-        <div className="col-12">
-          <table className="table table-dark table-responsive-sm table-sm table-striped border">
-            <thead>
-              <tr style={{ fontSize: "12px" }}>
-                <th>Etiqueta</th>
-                {labels.map((label, index) => (
-                  <th key={index}>{label}</th>
-                ))}
-                <th >fondo</th>
-                <th>Borrar</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {dataInputs.map((dataInput, rowIndex) => (
-                <tr key={rowIndex}>
-                  <td>
-                    <input
-                      type="text"
-                      className="form-control form-control-sm"
-                      placeholder="name"
-                      value={dataInput.label}
-                      onChange={(e) =>
-                        handleLabelChange(rowIndex, e.target.value)
-                      }
-                    />
-                  </td>
-                  {dataInput.data.map((data, colIndex) => (
-                    <td key={colIndex}>
-                      <input
-                        type="number"
-                        className="form-control form-control-sm"
-                        placeholder="value"
-                        value={data}
-                        onChange={(e) =>
-                          handleDataChange(rowIndex, colIndex, e.target.value)
-                        }
-                      />
-                    </td>
-                  ))}
-                  <td>
-                    <ColorPicker
-                      color={dataInput.backgroundColor}
-                      onChange={(color) => {
-                        handleBackgroundColorChange(rowIndex, color);
-                        handleBorderColorChange(rowIndex, color);
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <i
-                      className="btn bi bi-trash-fill text-white p-0 fs-3"
-                      onClick={() => handleRemoveRow(rowIndex)}
-                    ></i>
-                  </td>
-                </tr>
+    <div className="row justify-content-center">
+    <div className="col-12 mb-5">Ingresa los set de datos</div>
+    <div className="col-12">
+    <table className="table table-dark table-responsive-sm table-sm table-striped border">
+    <thead>
+    <tr style={{ fontSize: "12px" }}>
+    <th>Etiqueta</th>
+    {labels.map((label, index) => (
+    <th key={index}>{label}</th>
+    ))}
+    <th >fondo</th>
+    <th>Borrar</th>
+    </tr>
+    </thead>        <tbody>
+          {dataInputs.map((dataInput, rowIndex) => (
+            <tr key={rowIndex}>
+              <td>
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  placeholder="name"
+                  value={dataInput.label}
+                  onChange={(e) =>
+                    handleLabelChange(rowIndex, e.target.value)
+                  }
+                />
+              </td>
+              {dataInput.data.map((data, colIndex) => (
+                <td key={colIndex}>
+                  <input
+                    type="number"
+                    className="form-control form-control-sm"
+                    placeholder="value"
+                    value={data}
+                    onChange={(e) =>
+                      handleDataChange(rowIndex, colIndex, e.target.value)
+                    }
+                  />
+                </td>
               ))}
-              {!isAddRowDisabled && (
-                <tr>
-                  {labels.map((label, index) => (
-                    <td key={index}></td>
-                  ))}
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-          <div className="col-12 d-flex justify-content-evenly">
-            <button
-              type="button"
-              className="btn btn-outline-secondary text-white"
-              onClick={handleAddRow}
-            >
-              Agregar fila
-            </button>
-            <button
-              type="button"
-              className="btn btn-outline-secondary text-white"
-              disabled={!isValidData}
-              onClick={handleSubirDatos}
-            >
-              Subir datos
-            </button>
-          </div>
-        </div>
+              <td>
+                <ColorPicker
+                  color={dataInput.backgroundColor}
+                  onChange={(color) => {
+                    handleBackgroundColorChange(rowIndex, color);
+                    handleBorderColorChange(rowIndex, color);
+                  }}
+                />
+              </td>
+              <td>
+                <i
+                  className="btn bi bi-trash-fill text-white p-0 fs-3"
+                  onClick={() => handleRemoveRow(rowIndex)}
+                ></i>
+              </td>
+            </tr>
+          ))}
+          {!isAddRowDisabled && (
+            <tr>
+              {labels.map((label, index) => (
+                <td key={index}></td>
+              ))}
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <div className="col-12 d-flex justify-content-evenly">
+        <button
+          type="button"
+          className="btn btn-outline-secondary text-white"
+          onClick={handleAddRow}
+        >
+          Agregar fila
+        </button>
+        <button
+          type="button"
+          className="btn btn-outline-secondary text-white"
+          disabled={!isValidData}
+          onClick={handleSubirDatos}
+        >
+          Subir datos
+        </button>
       </div>
     </div>
-  );
+  </div>
+</div>
+);
 };
 export default AddMultiAxisData;

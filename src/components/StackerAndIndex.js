@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { GraphContext } from "../context/graphContext";
 
 const StackerAndIndex = () => {
@@ -6,10 +6,18 @@ const StackerAndIndex = () => {
   const [indexAxis, setIndexAxis] = useState("x");
   const [scales, setScales] = useState(false);
 
+  useEffect(() => {
+    if (chartOptions.indexAxis) {
+      setIndexAxis(chartOptions.indexAxis);
+    }
+    if (chartOptions.scales) {
+      setScales(chartOptions.scales.x?.stacked || false);
+    }
+  }, [chartOptions]);
+
   const handleIndexAxisChange = (event) => {
     setIndexAxis(event.target.value);
   };
-
 
   const handleScalesChange = (event) => {
     setScales(event.target.checked);
@@ -46,7 +54,7 @@ const StackerAndIndex = () => {
               checked={scales}
               onChange={handleScalesChange}
             />
-            <label className="form-check-label" >
+            <label className="form-check-label">
               Selecciona para apilar las barras
             </label>
           </div>
@@ -65,7 +73,10 @@ const StackerAndIndex = () => {
             </select>
           </div>
 
-          <button className="btn btn-outline-secondary btn-sm text-white mt-4" onClick={handleSave}>
+          <button
+            className="btn btn-outline-secondary btn-sm text-white mt-4"
+            onClick={handleSave}
+          >
             Agregar Eje y Diseño
           </button>
         </div>

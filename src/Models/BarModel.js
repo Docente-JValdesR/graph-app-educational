@@ -24,10 +24,9 @@ ChartJS.register(
 export default function BarModel() {
   const { chartOptions } = useContext(GraphContext);
   const options = {
-    responsive: chartOptions.responsive,
+    responsive: true,
     maintainAspectRatio: false, // Agregamos esta línea
     plugins: {
-      backgroundColor: 'white', // color de fondo del lienzo
       legend: {
         position: chartOptions.pluginsLegendPosition,
       },
@@ -56,7 +55,7 @@ export default function BarModel() {
   };
 
   return (
-    <div className="container"  style={{ height: "400px" }}>
+    <div className="">
       <Bar options={options} data={data} style={{background:"#fff"}} />
     </div>
   );

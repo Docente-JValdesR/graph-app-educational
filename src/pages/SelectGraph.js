@@ -41,11 +41,11 @@ export default function SelectGraph() {
       <div className="container text-center">
         <div className="row">
           <div className="col-12">
-            <h2 className="py-4">Selecciona el tipo de Gráfico</h2>
+            <h2 className="py-lg-4">Selecciona el tipo de Gráfico</h2>
           </div>
         </div>
         <div className="row text-center mx-2 px-3 justify-content-center">
-          <div className="col-12 col-md-6 rounded border">
+          <div className="col-12 col-lg-6 rounded border">
             {menuItems.map((item, index) => (
               <Link
                 key={item.to}
@@ -70,7 +70,7 @@ export default function SelectGraph() {
           </div>
         </div>
         <div className="row text-center justify-content-center py-5">
-          <div className="col-12 col-md-4">
+          <div className="col-12 col-lg-4">
             <Link className="btn btn-light btn-sm" to="/">
               Volver a Home
             </Link>

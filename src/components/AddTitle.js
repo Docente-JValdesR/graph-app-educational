@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { GraphContext } from "../context/graphContext";
 
 const AddTitle = () => {
@@ -6,6 +6,13 @@ const AddTitle = () => {
   const [pluginsTitleText, setPluginsTitleText] = useState("");
   const [pluginsLegendPosition, setPluginsLegendPosition] = useState("top");
   const [pluginsTitleDisplay, setPluginsTitleDisplay] = useState(false);
+
+  // cargar los datos del contexto al estado interno al cargar el componente
+  useEffect(() => {
+    setPluginsTitleText(chartOptions.pluginsTitleText || "");
+    setPluginsLegendPosition(chartOptions.pluginsLegendPosition || "top");
+    setPluginsTitleDisplay(chartOptions.pluginsTitleDisplay || false);
+  }, [chartOptions]);
 
   const handleTitleTextChange = (event) => {
     setPluginsTitleText(event.target.value);
@@ -18,6 +25,7 @@ const AddTitle = () => {
   const handleTitleDisplayChange = (event) => {
     setPluginsTitleDisplay(event.target.checked);
   };
+  
   const handleAddOptions = () => {
     const newOptions = {
       ...chartOptions,
@@ -27,6 +35,7 @@ const AddTitle = () => {
     };
     setChartOptions(newOptions);
   };
+  
   return (
     <div className="container align-self-center p-5 mb-3 border rounded custom-shadow">
       <div className="row justify-content-center">

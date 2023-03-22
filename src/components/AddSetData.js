@@ -6,9 +6,39 @@ const AddSetData = () => {
   const [labels, setLabels] = useState([]);
   const [dataInputs, setDataInputs] = useState([]);
   const { chartOptions, setChartOptions } = useContext(GraphContext);
+
   useEffect(() => {
-    setLabels(chartOptions.labels || []);
-  }, [chartOptions.labels]);
+    if (!chartOptions.datasets || chartOptions.datasets.length === 0) {
+      return;
+    }
+
+    const newLabels = chartOptions.labels || [];
+
+    const newDataInputs = chartOptions.datasets.map((dataset) => {
+      const backgroundColor = dataset.backgroundColor.match(/\d+/g);
+      const borderColor = dataset.borderColor.match(/\d+/g);
+
+      return {
+        label: dataset.label,
+        data: dataset.data,
+        backgroundColor: {
+          r: backgroundColor[0],
+          g: backgroundColor[1],
+          b: backgroundColor[2],
+          a: backgroundColor[3],
+        },
+        borderColor: {
+          r: borderColor[0],
+          g: borderColor[1],
+          b: borderColor[2],
+          a: 1,
+        },
+      };
+    });
+
+    setLabels(newLabels);
+    setDataInputs(newDataInputs);
+  }, [chartOptions]);
 
   const handleAddRow = () => {
     const newDataInput = {
@@ -31,18 +61,30 @@ const AddSetData = () => {
     newDataInputs[rowIndex].data[colIndex] = value;
     setDataInputs(newDataInputs);
   };
-
   const handleBackgroundColorChange = (rowIndex, color) => {
     const newDataInputs = [...dataInputs];
-    newDataInputs[rowIndex].backgroundColor = color.rgb;
+    const newColor = {
+      r: color.rgb.r,
+      g: color.rgb.g,
+      b: color.rgb.b,
+      a: color.rgb.a,
+    };
+    newDataInputs[rowIndex].backgroundColor = newColor;
     setDataInputs(newDataInputs);
   };
-
+  
   const handleBorderColorChange = (rowIndex, color) => {
     const newDataInputs = [...dataInputs];
-    newDataInputs[rowIndex].borderColor = color.rgb;
+    const newColor = {
+      r: color.rgb.r,
+      g: color.rgb.g,
+      b: color.rgb.b,
+      a: 1,
+    };
+    newDataInputs[rowIndex].borderColor = newColor;
     setDataInputs(newDataInputs);
   };
+  
 
   const handleRemoveRow = (rowIndex) => {
     const newDataInputs = [...dataInputs];
@@ -84,7 +126,6 @@ const AddSetData = () => {
                 <th>Borrar</th>
               </tr>
             </thead>
-
             <tbody>
               {dataInputs.map((dataInput, rowIndex) => (
                 <tr key={rowIndex}>
@@ -162,4 +203,5 @@ const AddSetData = () => {
     </div>
   );
 };
+
 export default AddSetData;

@@ -1,10 +1,16 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { GraphContext } from "../context/graphContext";
 
 const AddLabelsName = () => {
   const { chartOptions, setChartOptions } = useContext(GraphContext);
   const [labels, setLabels] = useState([]);
   const [newLabel, setNewLabel] = useState("");
+
+  useEffect(() => {
+    if (chartOptions.labels) {
+      setLabels(chartOptions.labels);
+    }
+  }, [chartOptions.labels]);
 
   const handleAddLabel = () => {
     if (newLabel.trim() !== "") {
@@ -88,14 +94,13 @@ const AddLabelsName = () => {
             </span>
           </div>
         </div>
-        
       </div>
       <button
-          className="btn btn-outline-secondary btn-sm text-white mt-4"
-          onClick={() => setChartOptions({ ...chartOptions, labels: labels })}
-        >
-          Agregar Labels
-        </button>
+        className="btn btn-outline-secondary btn-sm text-white mt-4"
+        onClick={() => setChartOptions({ ...chartOptions, labels: labels })}
+      >
+        Agregar Labels
+      </button>
     </div>
   );
 };

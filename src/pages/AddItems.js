@@ -116,18 +116,18 @@ export default function AddItems() {
       <h2>{title}</h2>
       <AddTitle />
       {componentToRender}
-      <div className="fixed-bottom d-flex flex-column flex-md-row">
+      <div className="fixed-bottom d-flex">
+        <Link to="/SelectGraph" className="btn bi bi-back text-white flex-fill">
+          <span className="ms-4">Change graph</span>
+        </Link>
         <Link
-          to="/SelectGraph"
-          className="btn btn-secondary rounded-0 flex-fill"
+          to="/showgraph"
+          className="btn bi bi-bar-chart-line flex-fill text-white"
         >
-          Volver a Seleccionar otro grafico
+          <span className="ms-4">View graph</span>
         </Link>
-        <Link to="/showgraph" className="btn btn-primary rounded-0 flex-fill">
-          Mostrar el gráfico seleccionado
-        </Link>
-        <Link to="/" className="btn btn-success rounded-0 flex-fill">
-          Volver a Home
+        <Link to="/" className="btn bi bi-houses flex-fill text-white">
+          <span className="ms-4">Homepage</span>
         </Link>
       </div>
     </div>

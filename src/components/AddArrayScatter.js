@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { GraphContext } from "../context/graphContext";
 import ColorPicker from "./ColorPicker";
 
@@ -17,6 +17,27 @@ const AddArrayScatter = () => {
     datasets.map(() => "rgba(0, 0, 0, 1)")
   );
 
+  useEffect(() => {
+    if (chartOptions.datasets && chartOptions.datasets.length > 0) {
+      setDatasets(chartOptions.datasets);
+      setLabelState(chartOptions.datasets.map((dataset) => dataset.label));
+      setDataState(
+        chartOptions.datasets.map((dataset) =>
+          dataset.data.map((data) => ({ x: data.x, y: data.y }))
+        )
+      );
+      setBackgroundColorState(
+        chartOptions.datasets.map(
+          (dataset) =>
+            `rgba(${dataset.backgroundColor
+              .split(",")
+              .map((color) => parseInt(color.trim()))
+              .join(",")})`
+        )
+      );
+    }
+  }, [chartOptions.datasets]);
+
   const handleLabelChange = (index, event) => {
     const newLabelState = [...labelState];
     newLabelState[index] = event.target.value;
@@ -31,9 +52,7 @@ const AddArrayScatter = () => {
 
   const handleColorChange = (index, color) => {
     const newBackgroundColorState = [...backgroundColorState];
-    newBackgroundColorState[
-      index
-    ] = `${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a}`;
+    newBackgroundColorState[      index    ] = `${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a}`;
     setBackgroundColorState(newBackgroundColorState);
   };
 
@@ -67,7 +86,7 @@ const AddArrayScatter = () => {
         <div className="col-12">
           <form onSubmit={handleSubmit}>
             <table className="table table-dark table-responsive-sm table-sm table-striped border">
-              <thead>
+            <thead>
                 <tr style={{ fontSize: "12px" }}>
                   <th>Etiqueta</th>
                   <th>Agregar coordenada</th>
