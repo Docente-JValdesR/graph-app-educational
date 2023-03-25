@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { GraphContext } from "../context/graphContext";
+import { notifySuccess } from "../components/AlertComponent";
 
 const AddLabelsName = () => {
   const { chartOptions, setChartOptions } = useContext(GraphContext);
@@ -26,9 +27,9 @@ const AddLabelsName = () => {
   };
 
   return (
-    <div className="container align-self-center p-5 mb-3 border rounded custom-shadow">
+    <div className="container align-self-center p-5 mb-3 custom-shadow">
       <div className="row justify-content-center">
-        <div className="col-12 mb-5">Etiquetas Abscisas</div>
+        <div className="col-12 mb-5">Etiquetas</div>
         <div className="col-12 col-lg-5">
           {labels.map((label, index) => (
             <div className="mb-3 input-group input-group-sm" key={index}>
@@ -96,8 +97,11 @@ const AddLabelsName = () => {
         </div>
       </div>
       <button
-        className="btn btn-outline-secondary btn-sm text-white mt-4"
-        onClick={() => setChartOptions({ ...chartOptions, labels: labels })}
+        className="btn btn-custom"
+        onClick={() => {
+          setChartOptions({ ...chartOptions, labels: labels });
+          notifySuccess();
+        }}
       >
         Agregar Labels
       </button>

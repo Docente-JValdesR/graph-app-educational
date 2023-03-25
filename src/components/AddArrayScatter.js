@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { GraphContext } from "../context/graphContext";
 import ColorPicker from "./ColorPicker";
+import { notifySuccess } from "../components/AlertComponent";
 
 const AddArrayScatter = () => {
   const { chartOptions, setChartOptions } = useContext(GraphContext);
@@ -52,7 +53,9 @@ const AddArrayScatter = () => {
 
   const handleColorChange = (index, color) => {
     const newBackgroundColorState = [...backgroundColorState];
-    newBackgroundColorState[      index    ] = `${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a}`;
+    newBackgroundColorState[
+      index
+    ] = `${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a}`;
     setBackgroundColorState(newBackgroundColorState);
   };
 
@@ -77,16 +80,17 @@ const AddArrayScatter = () => {
     const newChartOptions = { ...chartOptions };
     newChartOptions.datasets = newDatasets;
     setChartOptions(newChartOptions);
+    notifySuccess();
   };
 
   return (
-    <div className="container align-self-center py-5 mb-3 border rounded custom-shadow">
+    <div className="container align-self-center py-5 mb-3 custom-shadow">
       <div className="row justify-content-center">
         <div className="col-12 mb-5">Ingresa los set de datos</div>
         <div className="col-12">
           <form onSubmit={handleSubmit}>
-            <table className="table table-dark table-responsive-sm table-sm table-striped border">
-            <thead>
+            <table className="table table-responsive-sm table-sm table-striped border">
+              <thead>
                 <tr style={{ fontSize: "12px" }}>
                   <th>Etiqueta</th>
                   <th>Agregar coordenada</th>
@@ -109,7 +113,8 @@ const AddArrayScatter = () => {
                     <td>
                       <button
                         type="button"
-                        className="btn btn-outline-secondary text-white btn-sm"
+                        className="btn btn-custom"
+                        style={{ fontSize: "0.6rem" }}
                         onClick={() => {
                           const newDataState = [...dataState];
                           newDataState[index].push({ x: "", y: "" });
@@ -169,15 +174,15 @@ const AddArrayScatter = () => {
             <div className="col-12 d-flex justify-content-evenly">
               <button
                 type="button"
-                className="btn btn-outline-secondary text-white"
+                className="btn btn-custom"           
                 onClick={handleAddDataset}
               >
                 Agregar Variable
               </button>
               <button
                 type="submit"
-                className="btn btn-outline-secondary text-white"
-              >
+                className="btn btn-custom"
+                >
                 Subir Datos
               </button>
             </div>

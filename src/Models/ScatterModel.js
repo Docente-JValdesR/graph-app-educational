@@ -43,8 +43,8 @@ export default function ScatterModel() {
   };
 
   return (
-    <div className="container" style={{ height: "400px" }}>
-          <Scatter options={options} data={data} style={{background:"#fff"}}  />
+    <div className="container canvas-options">
+      <Scatter options={options} data={data} className="graph-options" />;
     </div>
   );
 }

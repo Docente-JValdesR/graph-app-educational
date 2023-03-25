@@ -1,38 +1,30 @@
 import React, { useState, useContext, useEffect } from "react";
 import { GraphContext } from "../context/graphContext";
 import ColorPicker from "./ColorPicker";
+import { notifySuccess } from "../components/AlertComponent";
 
 const AddSetData = () => {
+  const { chartOptions, setChartOptions } = useContext(GraphContext);
   const [labels, setLabels] = useState([]);
   const [dataInputs, setDataInputs] = useState([]);
-  const { chartOptions, setChartOptions } = useContext(GraphContext);
 
   useEffect(() => {
-    if (!chartOptions.datasets || chartOptions.datasets.length === 0) {
+    if (
+      !chartOptions.datasets ||
+      chartOptions.datasets.length === 0 ||
+      !chartOptions.labels ||
+      chartOptions.labels.length === 0
+    ) {
       return;
     }
 
-    const newLabels = chartOptions.labels || [];
-
+    const newLabels = chartOptions.labels;
     const newDataInputs = chartOptions.datasets.map((dataset) => {
-      const backgroundColor = dataset.backgroundColor.match(/\d+/g);
-      const borderColor = dataset.borderColor.match(/\d+/g);
-
       return {
         label: dataset.label,
-        data: dataset.data,
-        backgroundColor: {
-          r: backgroundColor[0],
-          g: backgroundColor[1],
-          b: backgroundColor[2],
-          a: backgroundColor[3],
-        },
-        borderColor: {
-          r: borderColor[0],
-          g: borderColor[1],
-          b: borderColor[2],
-          a: 1,
-        },
+        data: dataset.data || [],
+        backgroundColor: dataset.backgroundColor,
+        borderColor: dataset.borderColor,
       };
     });
 
@@ -40,12 +32,18 @@ const AddSetData = () => {
     setDataInputs(newDataInputs);
   }, [chartOptions]);
 
+  useEffect(() => {
+    if (chartOptions.labels) {
+      setLabels(chartOptions.labels);
+    }
+  }, [chartOptions.labels]);
+
   const handleAddRow = () => {
     const newDataInput = {
       label: "",
       data: Array(labels.length).fill(""),
-      backgroundColor: { r: 255, g: 99, b: 132, a: 1 },
-      borderColor: { r: 255, g: 99, b: 132 },
+      backgroundColor: "rgba(255, 99, 132, 1)",
+      borderColor: "rgba(255, 99, 132, 1)",
     };
     setDataInputs([...dataInputs, newDataInput]);
   };
@@ -61,30 +59,20 @@ const AddSetData = () => {
     newDataInputs[rowIndex].data[colIndex] = value;
     setDataInputs(newDataInputs);
   };
+
   const handleBackgroundColorChange = (rowIndex, color) => {
     const newDataInputs = [...dataInputs];
-    const newColor = {
-      r: color.rgb.r,
-      g: color.rgb.g,
-      b: color.rgb.b,
-      a: color.rgb.a,
-    };
+    const newColor = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
     newDataInputs[rowIndex].backgroundColor = newColor;
     setDataInputs(newDataInputs);
   };
-  
+
   const handleBorderColorChange = (rowIndex, color) => {
     const newDataInputs = [...dataInputs];
-    const newColor = {
-      r: color.rgb.r,
-      g: color.rgb.g,
-      b: color.rgb.b,
-      a: 1,
-    };
+    const newColor = `rgba(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b}, ${color.rgb.a})`;
     newDataInputs[rowIndex].borderColor = newColor;
     setDataInputs(newDataInputs);
   };
-  
 
   const handleRemoveRow = (rowIndex) => {
     const newDataInputs = [...dataInputs];
@@ -95,15 +83,22 @@ const AddSetData = () => {
   const handleSubirDatos = () => {
     const newChartOptions = { ...chartOptions };
     const datasets = dataInputs.map(
-      ({ label, data, backgroundColor, borderColor }) => ({
-        data: data.map((d) => Number(d)),
-        backgroundColor: `rgba(${backgroundColor.r}, ${backgroundColor.g}, ${backgroundColor.b}, ${backgroundColor.a})`,
-        borderColor: `rgba(${borderColor.r}, ${borderColor.g}, ${borderColor.b})`,
-        label,
-      })
+      ({ label, data, backgroundColor, borderColor }) => {
+        const newData = data.length > 0 ? data.map((d) => Number(d)) : [0]; // Verificar que el array tenga al menos un elemento
+        return {
+          data: newData,
+          backgroundColor,
+          borderColor,
+          label,
+        };
+      }
     );
     newChartOptions.datasets = datasets;
+    // Incluir el color de fondo en el objeto "chartOptions"
+
     setChartOptions(newChartOptions);
+
+    notifySuccess();
   };
 
   const isValidData = dataInputs.every(
@@ -111,11 +106,11 @@ const AddSetData = () => {
   );
 
   return (
-    <div className="container align-self-center py-5 mb-3 border rounded custom-shadow">
+    <div className="container align-self-center py-5 mb-3 custom-shadow">
       <div className="row justify-content-center">
         <div className="col-12 mb-5">Ingresa los set de datos</div>
         <div className="col-12">
-          <table className="table table-dark table-responsive-sm table-sm table-striped border">
+          <table className="table table-responsive-sm table-sm table-striped border">
             <thead>
               <tr style={{ fontSize: "12px" }}>
                 <th>Etiqueta</th>
@@ -140,19 +135,26 @@ const AddSetData = () => {
                       }
                     />
                   </td>
-                  {dataInput.data.map((data, colIndex) => (
-                    <td key={colIndex}>
-                      <input
-                        type="number"
-                        className="form-control form-control-sm"
-                        placeholder="value"
-                        value={data}
-                        onChange={(e) =>
-                          handleDataChange(rowIndex, colIndex, e.target.value)
-                        }
-                      />
-                    </td>
-                  ))}
+                  {dataInput.data.length > 0 &&
+                    dataInput.data.map((data, colIndex) => (
+                      <td key={colIndex}>
+                        {dataInputs.length > colIndex && (
+                          <input
+                            type="number"
+                            className="form-control form-control-sm"
+                            placeholder="value"
+                            value={dataInput.data[colIndex]}
+                            onChange={(e) =>
+                              handleDataChange(
+                                rowIndex,
+                                colIndex,
+                                e.target.value
+                              )
+                            }
+                          />
+                        )}
+                      </td>
+                    ))}
                   <td>
                     <ColorPicker
                       color={dataInput.backgroundColor}
@@ -164,35 +166,26 @@ const AddSetData = () => {
                   </td>
                   <td>
                     <i
-                      className="btn bi bi-trash-fill text-white p-0 fs-5"
+                      className="btn bi bi-trash-fill text-white p-0 fs-5 btn-danger"
                       onClick={() => handleRemoveRow(rowIndex)}
                     ></i>
                   </td>
                 </tr>
               ))}
-              <tr>
-                <td></td>
-                {labels.map((label, index) => (
-                  <td key={index}></td>
-                ))}
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
             </tbody>
           </table>
         </div>
         <div className="col-12 d-flex justify-content-evenly">
           <button
             type="button"
-            className="btn btn-outline-secondary text-white"
+            className="btn btn-custom"
             onClick={handleAddRow}
           >
             Agregar fila
           </button>
           <button
             type="button"
-            className="btn btn-outline-secondary text-white"
+            className="btn btn-custom"
             disabled={!isValidData}
             onClick={handleSubirDatos}
           >

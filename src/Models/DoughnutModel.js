@@ -7,6 +7,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function BarModel() {
   const { chartOptions } = useContext(GraphContext);
+  console.log(chartOptions);
   const options = {
     responsive: true,
     maintainAspectRatio: false, // Agregamos esta línea
@@ -20,16 +21,15 @@ export default function BarModel() {
       },
     },
   };
+
   const data = {
     labels: chartOptions.labels,
     datasets: chartOptions.datasets,
-    backgroundColor: chartOptions.backgroundColor,
-    borderColor: chartOptions.borderColor,
   };
-
+  console.log(data);
   return (
-    <div className="p-4" style={{ minHeight: "400px" }}>
-      <Doughnut className="py-4" options={options} data={data} style={{background:"#fff"}}  />
+    <div className="container canvas-options">
+      <Doughnut options={options} data={data} className="graph-options" />;
     </div>
   );
 }

@@ -71,8 +71,8 @@ export default function BarModel() {
   };
 
   return (
-    <div className="container" style={{ height: "400px" }}>
-      <Line options={options} data={data} style={{background:"#fff"}}  />
+    <div className="container canvas-options">
+      <Line options={options} data={data} className="graph-options" />;
     </div>
   );
 }

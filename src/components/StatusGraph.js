@@ -49,7 +49,7 @@ const StatusGraph = () => {
     <div className="ps-5 py-5 position-fixed" style={{ width: "inherit" }}>
       <div className="container text-center">
         <h2>Estado de datos.</h2>
-        <div className="row justify-content-center text-start border rouunded">
+        <div className="row justify-content-center text-start p-lg-5 custom-shadow">
           <div className="col-12" style={{ height: "75vh" }}>
             {/* Mostramos el texto letra por letra */}
               <pre

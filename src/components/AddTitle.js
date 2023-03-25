@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { GraphContext } from "../context/graphContext";
+import { notifySuccess } from "../components/AlertComponent";
 
 const AddTitle = () => {
   const { chartOptions, setChartOptions } = useContext(GraphContext);
@@ -25,7 +26,7 @@ const AddTitle = () => {
   const handleTitleDisplayChange = (event) => {
     setPluginsTitleDisplay(event.target.checked);
   };
-  
+
   const handleAddOptions = () => {
     const newOptions = {
       ...chartOptions,
@@ -34,10 +35,11 @@ const AddTitle = () => {
       pluginsTitleDisplay,
     };
     setChartOptions(newOptions);
+    notifySuccess();
   };
-  
+
   return (
-    <div className="container align-self-center p-5 mb-3 border rounded custom-shadow">
+    <div className="container align-self-center p-5 mb-3 custom-shadow">
       <div className="row justify-content-center">
         <div className="col-12 col-lg-6">
           <div className="mb-3 form-check">
@@ -48,16 +50,12 @@ const AddTitle = () => {
               checked={pluginsTitleDisplay}
               onChange={handleTitleDisplayChange}
             />
-            <label className="form-check-label">
-              Mostrar título
-            </label>
+            <label className="form-check-label">Mostrar título</label>
           </div>
           {pluginsTitleDisplay && (
             <div className="">
               <div className="mb-3">
-                <label className="form-label">
-                  Título
-                </label>
+                <label className="form-label">Título</label>
                 <input
                   type="text"
                   className="form-control form-control-sm"
@@ -85,8 +83,8 @@ const AddTitle = () => {
             </div>
           )}
           <button
-            className="btn btn-outline-secondary text-white btn-sm mt-4"
-            onClick={() => handleAddOptions()}
+                        className="btn btn-custom"
+                        onClick={handleAddOptions}
           >
             Agregar Titulo y Leyendas
           </button>

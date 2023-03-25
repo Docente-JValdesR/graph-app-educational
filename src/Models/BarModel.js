@@ -36,11 +36,7 @@ export default function BarModel() {
       },
     },
     indexAxis: chartOptions.indexAxis,
-    element: {
-      bar: {
-        borderWidth: chartOptions.elementBorders,
-      },
-    },
+
     scales: chartOptions.scales,
   };
 
@@ -55,8 +51,8 @@ export default function BarModel() {
   };
 
   return (
-    <div className="">
-      <Bar options={options} data={data} style={{background:"#fff"}} />
+    <div className="container canvas-options">
+      <Bar options={options} data={data} className="graph-options" />;
     </div>
   );
 }

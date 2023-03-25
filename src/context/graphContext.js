@@ -9,10 +9,10 @@ export const GraphProvider = ({ children }) => {
     pluginsLegendPosition: "",
     pluginsTitleDisplay: "",
     pluginsTitleText: "",
-    datasets: ["1"],
+    datasets: [],
     backgroundColor: [],
     borderColor: [],
-    scales:{},
+    scales: {},
   });
 
   useEffect(() => {

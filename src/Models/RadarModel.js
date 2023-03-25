@@ -48,8 +48,8 @@ export default function BarModel() {
   };
 
   return (
-    <div className="container" style={{ height: "400px" }}>
-      <Radar options={options} data={data} style={{background:"#fff"}}  />
+    <div className="container canvas-options">
+      <Radar options={options} data={data} className="graph-options" />;
     </div>
   );
 }

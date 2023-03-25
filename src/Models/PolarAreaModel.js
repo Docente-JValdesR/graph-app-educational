@@ -35,8 +35,8 @@ export default function BarModel() {
   };
 
   return (
-    <div className="container" style={{ height: "400px" }}>
-      <PolarArea options={options} data={data} style={{background:"#fff"}}  />
+    <div className="container canvas-options">
+      <PolarArea options={options} data={data} className="graph-options" />;
     </div>
   );
 }

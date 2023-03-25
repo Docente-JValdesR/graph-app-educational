@@ -2,11 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (
-    <div
-      fluid
-      className="container vh-100 d-flex align-items-center justify-content-center"
-      style={{ backgroundColor: "#000000", color: "#FFFFFF" }}
-    >
+    <div className="container vh-100 d-flex align-items-center justify-content-center">
       <div className="row">
         <div className="col text-center">
           <h1 className="display-4">Bienvenido a la Graficadora</h1>
@@ -15,11 +11,11 @@ export default function HomePage() {
           </p>
           <Link
             to="/selectgraph"
-            className=" btn btn-outline mt-4 btn-lg text-white"
-            style={{ backgroundColor: "#000", borderColor: "#F29F05" }}
+            className="btn btn-outline-warning mt-4 btn-lg"
+            style={{ borderColor: "#F29F05" }}
           >
             <i className="bi bi-bar-chart me-2"></i>
-            Ir a la Graficadora
+            <span className="text-black">Ir a la Graficadora</span>
           </Link>
           <footer className="mt-3 fixed-bottom" style={{ fontSize: "1rem" }}>
             <p>Profesor de Matemáticas e Informática Educativa, José Valdés</p>

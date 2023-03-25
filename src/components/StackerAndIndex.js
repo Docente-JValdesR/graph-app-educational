@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { GraphContext } from "../context/graphContext";
-
+import { notifySuccess } from "../components/AlertComponent";
 const StackerAndIndex = () => {
   const { chartOptions, setChartOptions } = useContext(GraphContext);
   const [indexAxis, setIndexAxis] = useState("x");
@@ -40,10 +40,11 @@ const StackerAndIndex = () => {
     };
 
     setChartOptions(newChartOptions);
+    notifySuccess();
   };
 
   return (
-    <div className="container align-self-center p-5 mb-3 border rounded custom-shadow">
+    <div className="container align-self-center p-5 mb-3 custom-shadow">
       <div className="row justify-content-center">
         <div className="col-12 col-lg-6">
           <div className="mb-3 form-check">
@@ -55,12 +56,12 @@ const StackerAndIndex = () => {
               onChange={handleScalesChange}
             />
             <label className="form-check-label">
-              Selecciona para apilar las barras
+              ¿Quieres apilar las barras?
             </label>
           </div>
           <div className="mb-3">
             <label htmlFor="index-axis-select" className="form-label">
-              Selecciona el eje de simetría
+              ¿Cuál sera tu eje de simetría?
             </label>
             <select
               className="form-select form-select-sm"
@@ -72,11 +73,7 @@ const StackerAndIndex = () => {
               <option value="y">Y</option>
             </select>
           </div>
-
-          <button
-            className="btn btn-outline-secondary btn-sm text-white mt-4"
-            onClick={handleSave}
-          >
+          <button className="btn btn-custom" onClick={handleSave}>
             Agregar Eje y Diseño
           </button>
         </div>

@@ -1,7 +1,3 @@
-* {
-  background: #000;
-  color: #fff;
-}
 .color-picker-container {
   position: fixed;
   z-index: 9999;
@@ -53,19 +49,37 @@
 }
 
 .active {
-  background-color: #ffffff4d;
+  background-color: #f29f05;
+  font-weight: bold;
+  color: white !important;
   opacity: 1;
 }
 
-
 .custom-shadow {
-box-shadow:5px 5px 5px;
+  border: 1px solid #f29f05;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #f29f05;
 }
-.custom-shadow:hover {
-transform: scale(1.01);
-transition: 0.3s;
+.custom-shadow:focus {
+  transform: scale(1.01);
+  transition: 0.3s;
 }
 
+.btn-custom {
+  background-color: #f29f05;
+  color: white;
+  font-size: 15px;
+}
+.btn-custom:hover {
+  background-color: #f29f05;
+  color: white;
+  transform: scale(1.1);
+  transition: 0.5s;
+}
+
+.btn-custom.clicked {
+  transform: scale(0.9);
+}
 .blink {
   animation: blinker 1s cubic-bezier(0.5, 0, 1, 1) infinite;
 }
@@ -76,3 +90,18 @@ transition: 0.3s;
   }
 }
 
+.canvas-options {
+  height: 500px;
+  width: 100%;
+}
+.graph-options {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.graph-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
